@@ -56,6 +56,8 @@
         <button @click.prevent="next()">Next</button>
       </div>
       <div v-show="step === 3">
+        <label for="file"> Add a profile Pic: </label>
+        <input type="file" @change="onFileSelected" name="file" value="">
         <p>
           <legend for="paypal">
             Your paypal email:
@@ -71,6 +73,7 @@
 
 <script>
 import NameEmail from '../components/NameEmail.vue';
+
 
 export default {
   name: 'registration',
@@ -89,7 +92,8 @@ export default {
         city: null,
         state: null,
         zip: null,
-        paypal: null
+        paypal: null,
+        profile_pic: null
       }
     }
   },
@@ -99,6 +103,13 @@ export default {
     },
     next() {
       this.step++;
+    },
+    onFileSelected(event) {
+      console.log(event);
+      this.profile_pic = event.target.files[0];
+    },
+    onSubmit(event) {
+      
     }
   }
 };
