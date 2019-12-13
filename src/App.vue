@@ -1,104 +1,66 @@
 <template>
-  <v-app>
     <div id="app">
-      <v-card class="overflow-hidden">
-      <v-app-bar
-        absolute
-        dark
-        scroll-target="#playground-example"
-        :color="color"
-        :elevate-on-scroll="elevateOnScroll"
-        :hide-on-scroll="hideOnScroll"
-        :fade-on-scroll="fadeOnScroll"
-        :fade-img-on-scroll="fadeImgOnScroll"
-        :inverted-scroll="invertedScroll"
-        :collapse="collapse"
-        :collapse-on-scroll="collapseOnScroll"
-        :shrink-on-scroll="shrinkOnScroll"
-        :extended="extended"
-      >
-        <v-app-bar-nav-icon>
+      <div>
+        <b-navbar toggleable="lg" type="dark" variant="info">
+          <b-navbar-brand href="#">NavBar</b-navbar-brand>
 
-        </v-app-bar-nav-icon>
-        <v-btn><router-link to="/vue">Home</router-link> | </v-btn>
-        <v-btn><router-link to="/about">About</router-link> | </v-btn>
-        <v-btn><router-link to="/signup">Sign Up</router-link> | </v-btn>
-        <v-btn><router-link to="/flask_home">Back to main site</router-link> </v-btn>
-        <v-menu
-      v-model="value"
-      :disabled="disabled"
-      :absolute="absolute"
-      :open-on-hover="openOnHover"
-      :close-on-click="closeOnClick"
-      :close-on-content-click="closeOnContentClick"
-      :offset-x="offsetX"
-      :offset-y="offsetY"
-    >
-      <template v-slot:activator="{ on }">
-        <v-btn
-          color="primary"
-          dark
-          v-on="on"
-        >
-          Dropdown
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="(item, index) in items"
-          :key="index"
-          @click=""
-        >
+          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-          <router-link :to="item.link">
-              <v-list-item-title :to="item.link">
-                {{ item.title }}
-              </v-list-item-title>
-          </router-link>
+          <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav>
+              <b-nav-item to="/vue">Home</b-nav-item>
+              <b-nav-item to="/shop">Shop</b-nav-item>
+              <b-nav-item to="/flask_home">Back to Flask Home</b-nav-item>
+              <b-nav-item to="/device_repair">Repair Services</b-nav-item>
+              <b-nav-item to="/electronics">Electronics</b-nav-item>
+            </b-navbar-nav>
 
-        </v-list-item>
-      </v-list>
-    </v-menu>
+            <!-- Right aligned nav items -->
+            <b-navbar-nav class="ml-auto">
+              <b-nav-form>
+                <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+                <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+              </b-nav-form>
 
-        <v-toolbar-title>Title</v-toolbar-title>
+              <b-nav-item-dropdown text="About Us" right>
+                <b-dropdown-item to="/about">About</b-dropdown-item>
 
-        <v-spacer></v-spacer>
+              </b-nav-item-dropdown>
+              <b-nav-item-dropdown right>
+                <!-- Using 'button-content' slot -->
+                <template v-slot:button-content>
+                  <em>Cart</em>
+                </template>
+                <li v-for="item in cart">
+                  <b-dropdown-item to="/cart">{{ item.name }} | ${{ item.price }}</b-dropdown-item>
+                </li>
+              </b-nav-item-dropdown>
+              <b-nav-item-dropdown right>
+                <!-- Using 'button-content' slot -->
+                <template v-slot:button-content>
+                  <em>User</em>
+                </template>
 
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-      </v-app-bar>
-      <v-sheet
-        id="playground-example"
-        class="overflow-y-auto"
-        max-height="600"
-      >
-        <v-container style="height: 1500px;">
-          <v-content>
-            <router-view/>
-          </v-content>
-        </v-container>
-      </v-sheet>
-    </v-card>
+                <b-dropdown-item to="/signup">Signup</b-dropdown-item>
+                <b-dropdown-item href="#">Profile</b-dropdown-item>
+                <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+              </b-nav-item-dropdown>
+            </b-navbar-nav>
+          </b-collapse>
+        </b-navbar>
+      </div>
       <div id="nav" class="wrapper">
 
       </div>
-      </v-app-bar>
-
+      <router-view/>
     </div>
-  </v-app>
 </template>
 
 
 <script>
   export default {
     data: () => ({
-      items: [
-        { title: 'Home', link: '/vue' },
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me 2' },
-      ],
+      cart: [{name: "Cat", price: 34}, {name: "Dog", price: 45}, {name: "fish", price: 25}],
       disabled: false,
       absolute: false,
       openOnHover: false,
@@ -119,6 +81,11 @@
       color: 'accent',
       colors: ['primary', 'accent', 'warning lighten-2', 'teal', 'orange'],
     }),
+    computed: {
+      addToCart() {
+        return this.cart.push(this.$store.state.cart);
+      }
+    }
   }
 </script>
 

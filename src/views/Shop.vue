@@ -2,26 +2,16 @@
   <div class="home">
 
     <section class="wrapper">
-      <h2> Shopping Our Items </h2>
-      <h3>New Items for Low Prices!</h3>
-      <p>Shop from our selection of hot products and second hand parts and equipment!
-        We offer a selection of unique tools and parts that have been put to the test by us.
-      </p>
-      <h3>Used Items from Us and Others!</h3>
-      <p>
-        Look out for chances to buy items we don't need too! From anything like cars parts to
-        unused soldier stations. We don't have all the space in the world and it's no use just letting stuff sit around!
-        On occassion, if space permits, we can also sell used items from our customers.
-      </p>
-
-    </section>
-    <hr>
-    <section class="wrapper">
-      <h2> Repair and Warranty Services </h2>
-    </section>
-    <hr>
-    <section class="wrapper">
-      <h2> Web and IT Support Services </h2>
+      <h2> Featured Items </h2>
+      <ul class="featured-items">
+        <li v-for="product in products" :key="product.id" class="featured-items_item">
+          <router-link :to="{ name: 'product', params: { id: product.id}}">
+            <img class="product-image" :src="imagePath(product)" alt="">
+            <p class="product-title">{{ product.name }}</p>
+            <p><em>${{ product.price }}</em></p>
+          </router-link>
+        </li>
+      </ul>
     </section>
   </div>
 </template>
@@ -31,18 +21,25 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'home',
+  name: 'shop',
   components: {
     HelloWorld
   },
   props: [],
-  computed: {
-    products() {
-      return this.$store.state.products
+  data() {
+    return {
+      products: null
     }
   },
   methods: {
+    imagePath(product) {
+      try {
+        return require(`../assets/imagesForVueClient/products/${product.images[0]}`);
+      } catch (e) {
+        return require(`../assets/imagesForVueClient/iLookStupid.jpg`);
+      }
 
+    }
   }
 }
 </script>

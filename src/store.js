@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    user: null,
     cart: [],
     products: [
       {
@@ -15,7 +16,8 @@ export default new Vuex.Store({
           'corollaCVPass_01.jpg',
           'corollaCVPass_02.jpg',
           'corollaCVPass_03.jpg'
-        ]
+        ],
+        affilate_link: ""
       },
       {
         name: "Corolla 98-02 1zzfe Engine Cover",
@@ -48,6 +50,9 @@ export default new Vuex.Store({
   getters: {
     product: (state) => (id) => {
       return state.products.filter(p => p.id === Number(id))[0]
-    }
+    },
+    cart: (state) => (id) => {
+      return state.cart.filter(p => p.id === Number(id))[0]
+    },
   }
 });

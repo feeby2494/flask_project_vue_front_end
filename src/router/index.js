@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Product from '../views/Product.vue'
 import Registration from '../views/Registration.vue'
+import Shop from '../views/Shop.vue'
+import DeviceRepair from '../views/DeviceRepair.vue'
+import Electronics from '../views/Electronics.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +16,11 @@ const routes = [
     path: '/vue',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/shop',
+    name: 'shop',
+    component: Shop
   },
   {
     path: '/products/:id',
@@ -31,6 +39,16 @@ const routes = [
     path: '/signup',
     name: 'registration',
     component: Registration
+  },
+  {
+    path: '/device_repair',
+    name: 'deviceRepair',
+    component: DeviceRepair
+  },
+  {
+    path: '/electronics',
+    name: 'electronics',
+    component: Electronics
   },
   {
     path: '/flask_home',

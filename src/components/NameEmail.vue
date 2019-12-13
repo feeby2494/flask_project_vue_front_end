@@ -4,13 +4,13 @@
       <legend for="name">
         Your Name:
       </legend>
-      <input id="name" name="name" v-model="nameToSave">
+      <b-form-input id="name" name="name" v-model="nameToSave"></b-form-input>
     </p>
     <p>
       <legend for="email">
         Your Email:
       </legend>
-      <input id="email" name="email" v-model="emailToSave">
+      <b-form-input id="email" name="email" v-model="emailToSave"></b-form-input>
     </p>
   </div>
 </template>
