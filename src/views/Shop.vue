@@ -1,7 +1,7 @@
 <template>
   <div class="home">
 
-    <section class="wrapper">
+    <section class="wrapper mt-3">
       <h2> Featured Items </h2>
       <ul class="featured-items">
         <li v-for="product in products" :key="product.id" class="featured-items_item">
@@ -12,6 +12,7 @@
           </router-link>
         </li>
       </ul>
+
     </section>
   </div>
 </template>
@@ -26,9 +27,9 @@ export default {
     HelloWorld
   },
   props: [],
-  data() {
-    return {
-      products: null
+  computed: {
+    products() {
+      return this.$store.state.products
     }
   },
   methods: {

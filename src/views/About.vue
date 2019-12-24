@@ -1,5 +1,5 @@
 <template>
-  <div class="about wrapper">
+  <div class="about wrapper mt-3">
     <h1>About Me</h1>
     <p></p>
     <h2>My Vision for the World</h2>

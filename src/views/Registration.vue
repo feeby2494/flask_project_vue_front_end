@@ -1,5 +1,5 @@
 <template>
-  <div id="signup" class="wrapper">
+  <div id="signup" class="wrapper mt-3">
     <form action="index.html" method="post">
       <div v-show="step === 1">
         <h3>Sign Up</h3>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="wrapper">
+    <section class="wrapper mt-3">
       <ProductInfo
         :name="product.name"
         :price="product.price"

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
 
-    <section class="wrapper">
+    <section class="wrapper mt-3">
       <h2> Shopping Our Items </h2>
       <h3>New Items for Low Prices!</h3>
       <p>Shop from our selection of hot products and second hand parts and equipment!
@@ -49,7 +49,7 @@ export default {
 
 <style lang="scss">
 .wrapper {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   @media only screen and (max-width: 832px) {
     max-width: 100%;
