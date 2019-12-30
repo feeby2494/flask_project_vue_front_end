@@ -174,7 +174,14 @@
                     <b-button pill variant="outline-danger" v-show="!app.customerName || !app.customerEmail"> Please enter Email and full name</b-button>
                   </div>
                   <div class="" v-show="appStep === 2">
-
+                    <b-form-group
+                      v-show="app.customerName"
+                      id="additional"
+                      label="Additional Questions/Concerns/Instructions:"
+                      label-for="addInput-1"
+                    >
+                      <b-form-input id="addInput-1" name="additional" v-model="app.additional"></b-form-input>
+                    </b-form-group>
                     <b-button variant="info" class="mr-2" @click.prevent="prevApp()">Previous</b-button>
                     <b-button variant="info" @click.prevent="submitApp()" value="Save">Finished</b-button>
                   </div>
@@ -196,63 +203,67 @@
                 <b-form class="" action="index.html" method="post">
                   <div class="" v-show="autoStep === 0">
                     <b-form-group
-                      id="deviceType"
-                      label="Select your Device Type:"
-                      label-for="deviceTypeInput-1"
+                      id="carMake"
+                      label="Select your make:"
+                      label-for="carMakeInput-1"
                     >
-                      <b-form-select id="deviceTypeInput-1" name="deviceType" v-model="repair.deviceType">
-                        <option value="notebook">Notebook</option>
-                        <option value="smartphone">Smartphone</option>
-                        <option value="tablet">Tablet</option>
-                        <option value="desktop">Desktop computer</option>
-                        <option value="chromebook">Chromebook</option>
+                      <b-form-select id="carMakeInput-1" name="carMake" v-model="automotive.make">
+                        <option value="toyota">Toyota</option>
+                        <option value="honda">Honda</option>
+                        <option value="nissan">Nissan</option>
+                        <option value="chevrolet">Chevrolet</option>
+                        <option value="ford">Ford</option>
                       </b-form-select>
                     </b-form-group>
-                    <div class="" v-show="repair.deviceType === 'notebook'">
-                      <p>notebook</p>
+                    <div class="" v-show="automotive.make">
                       <b-form-group
-                        id="notebookBrand"
-                        label="Brand:"
-                        label-for="notebookBrandInput-1"
+                        id="carModel"
+                        label="Select your model:"
+                        label-for="carModelInput-1"
                       >
-                        <b-form-select id="notebookBrandInput-1" name="notebookBrand" v-model="repair.brand">
-                          <option value="Samsung">Samsung</option>
-                          <option value="LG">LG</option>
-                          <option value="Purism">Purism</option>
-                          <option value="Dell">Dell</option>
-                          <option value="HP">HP</option>
-                          <option value="Xiaomi">Xiaomi</option>
-                          <option value="Asus">Asus</option>
-                          <option value="Acer">Acer</option>
-                          <option value="MSI">Msi</option>
-                          <option value="Lenovo">Lenovo</option>
-                          <option value="Microsoft">Microsoft</option>
-                          <option value="Apple">Apple</option>
-                        </b-form-select>
+                        <b-form-input id="carModelInput-1" name="carModel" v-model="automotive.model"></b-form-input>
                       </b-form-group>
                     </div>
-
-                    <div class="" v-show="repair.deviceType === 'desktop'">
-                      <p>desktop</p>
-                    </div>
-                    <div class="" v-show="repair.deviceType === 'chromebook'">
-                      <p>chromebook</p>
+                    <div class="" v-show="automotive.model">
+                      <b-form-group
+                        id="carTrim"
+                        label="Select your trim (Si, Se, Ser, Lx, etc):"
+                        label-for="carTrimInput-1"
+                      >
+                        <b-form-input id="carTrimInput-1" name="carTrim" v-model="automotive.trim"></b-form-input>
+                      </b-form-group>
                     </div>
                     <b-button variant="info" @click.prevent="nextAuto()">Next</b-button>
                   </div>
                   <div class="" v-show="autoStep === 1">
-                    <p>{{ repair.brand }}</p>
-                    <p>{{ repair.model }}</p>
-                    <p>{{ repair.deviceType }}</p>
-                    <div class="" v-show="repair.deviceType === 'desktop'">
-                      <p>desktop</p>
+                    <b-form-group
+                      id="typeOfWork"
+                      label="Is this a Repair or Modification?"
+                      label-for="typeOfWorkInput-1"
+                    >
+                      <b-form-select id="typeOfWorkInput-1" name="typeOfWork" v-model="automotive.typeOfWork">
+                        <option value="repair">Repair</option>
+                        <option value="mod">Modification</option>
+                      </b-form-select>
+                    </b-form-group>
+                    <div class="" v-show="automotive.typeOfWork === 'repair'">
+                      <b-form-group
+                        id="repairList"
+                        label="Please describe your car issues to me:"
+                        label-for="repairListInput-1"
+                      >
+                        <b-form-input id="repairListInput-1" name="repairList" v-model="automotive.repairList"></b-form-input>
+                      </b-form-group>
                     </div>
-                    <div class="" v-show="repair.deviceType === 'smartphone'">
-                      <p>{{ repair.brand }}</p>
-                      <p>{{ repair.model }}</p>
-
+                    <div class="" v-show="automotive.typeOfWork === 'mod'">
+                      <b-form-group
+                        id="modList"
+                        label="What do you want to do to your car?"
+                        label-for="modListInput-1"
+                      >
+                        <b-form-input id="modListInput-1" name="modList" v-model="automotive.modList"></b-form-input>
+                      </b-form-group>
                     </div>
-
                     <b-button variant="info" class="mr-2" @click.prevent="prevAuto()">Previous</b-button>
                     <b-button variant="info" @click.prevent="nextAuto()">Next</b-button>
                   </div>
@@ -279,7 +290,7 @@ export default {
       step: 0,
       appStep: 0,
       autoStep: 0,
-      size: 8,
+      size: 10,
       showAlert: true,
       repair: {
         deviceType: '',
@@ -293,7 +304,16 @@ export default {
       app: {
         appType: '',
         customerName: null,
-        customerEmail: null
+        customerEmail: null,
+        additional: null
+      },
+      automotive: {
+        make: null,
+        model: null,
+        trim: null,
+        typeOfWork: null,
+        repairList: null,
+        modList: null
       },
       phones: {
         "Samsung": {
